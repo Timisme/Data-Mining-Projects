@@ -1,0 +1,473 @@
+min_support:10
+Frequent Pattern,Support
+{'Coffee'},4528
+{'Bread'},3097
+{'Tea'},1350
+{'Cake'},983
+"{'Coffee', 'Bread'}",852
+{'Pastry'},815
+{'Sandwich'},680
+{'Medialuna'},585
+{'Hot chocolate'},552
+"{'Coffee', 'Cake'}",518
+{'Cookies'},515
+"{'Coffee', 'Tea'}",472
+"{'Pastry', 'Coffee'}",450
+{'Brownie'},379
+{'Farm House'},371
+{'Juice'},365
+{'Muffin'},364
+"{'Sandwich', 'Coffee'}",362
+{'Alfajores'},344
+"{'Medialuna', 'Coffee'}",333
+{'Scone'},327
+{'Soup'},326
+{'Toast'},318
+"{'Hot chocolate', 'Coffee'}",280
+"{'Pastry', 'Bread'}",276
+{'Scandinavian'},275
+"{'Cookies', 'Coffee'}",267
+"{'Tea', 'Bread'}",266
+"{'Cake', 'Tea'}",225
+"{'Coffee', 'Toast'}",224
+"{'Cake', 'Bread'}",221
+"{'Juice', 'Coffee'}",195
+{'Truffles'},192
+"{'Coffee', 'Alfajores'}",186
+"{'Coffee', 'Brownie'}",186
+{'Coke'},184
+"{'Coffee', 'Muffin'}",178
+{'Spanish Brunch'},172
+"{'Coffee', 'Scone'}",171
+"{'Sandwich', 'Bread'}",161
+"{'Medialuna', 'Bread'}",160
+{'Baguette'},152
+"{'Soup', 'Coffee'}",150
+{'Tiffin'},146
+{'Jam'},142
+{'Fudge'},142
+"{'Cookies', 'Bread'}",137
+"{'Sandwich', 'Tea'}",136
+{'Mineral water'},134
+"{'Hot chocolate', 'Bread'}",127
+{'Jammie Dodgers'},125
+{'Chicken Stew'},123
+"{'Hot chocolate', 'Cake'}",108
+"{'Coffee', 'Pastry', 'Bread'}",106
+"{'Spanish Brunch', 'Coffee'}",103
+"{'Bread', 'Brownie'}",102
+{'Hearty & Seasonal'},100
+{'Salad'},99
+"{'Alfajores', 'Bread'}",98
+"{'Coffee', 'Cake', 'Bread'}",95
+"{'Coffee', 'Cake', 'Tea'}",95
+"{'Cookies', 'Tea'}",93
+"{'Pastry', 'Tea'}",91
+"{'Medialuna', 'Pastry'}",87
+"{'Soup', 'Tea'}",86
+"{'Scone', 'Bread'}",86
+{'Frittata'},81
+"{'Coffee', 'Tiffin'}",80
+"{'Scone', 'Tea'}",79
+{'Smoothies'},77
+"{'Bread', 'Muffin'}",77
+"{'Medialuna', 'Tea'}",77
+"{'Hot chocolate', 'Tea'}",76
+"{'Bread', 'Toast'}",74
+"{'Coffee', 'Truffles'}",71
+"{'Juice', 'Bread'}",70
+"{'Coffee', 'Tea', 'Bread'}",70
+"{'Cookies', 'Cake'}",69
+"{'Juice', 'Tea'}",68
+"{'Sandwich', 'Coffee', 'Bread'}",68
+"{'Juice', 'Cake'}",67
+"{'Coffee', 'Hot chocolate', 'Cake'}",65
+"{'Sandwich', 'Cake'}",65
+"{'Alfajores', 'Tea'}",64
+"{'Tea', 'Brownie'}",64
+"{'Medialuna', 'Coffee', 'Bread'}",64
+{'Keeping It Local'},63
+"{'Coffee', 'Jammie Dodgers'}",63
+"{'Farm House', 'Coffee'}",63
+"{'Coffee', 'Salad'}",62
+"{'Bread', 'Scandinavian'}",62
+"{'Soup', 'Bread'}",62
+"{'Tea', 'Muffin'}",62
+"{'Coke', 'Coffee'}",61
+"{'Tea', 'Toast'}",61
+{'The Nomad'},58
+"{'Cookies', 'Juice'}",58
+"{'Coffee', 'Hot chocolate', 'Bread'}",58
+"{'Cookies', 'Hot chocolate'}",57
+"{'Sandwich', 'Juice'}",55
+{'Focaccia'},54
+"{'Hearty & Seasonal', 'Coffee'}",54
+"{'Hot chocolate', 'Pastry'}",54
+"{'Coffee', 'Mineral water'}",53
+{'Vegan mincepie'},52
+"{'Sandwich', 'Soup'}",52
+"{'Keeping It Local', 'Coffee'}",51
+"{'Sandwich', 'Coffee', 'Tea'}",51
+"{'Coffee', 'Cookies', 'Bread'}",50
+"{'Coffee', 'Chicken Stew'}",49
+"{'Coke', 'Sandwich'}",49
+"{'Pastry', 'Cake'}",49
+{'Bakewell'},48
+"{'Bread', 'Jam'}",48
+"{'Truffles', 'Bread'}",47
+"{'Farm House', 'Bread'}",47
+{'Tartine'},46
+"{'Bread', 'Tiffin'}",46
+"{'Coffee', 'Scandinavian'}",46
+"{'Cake', 'Muffin'}",46
+"{'Medialuna', 'Pastry', 'Coffee'}",46
+"{'Cake', 'Bread', 'Tea'}",46
+"{'Spanish Brunch', 'Bread'}",45
+"{'Cake', 'Scone'}",45
+"{'Medialuna', 'Hot chocolate'}",45
+"{'Bread', 'Jammie Dodgers'}",44
+"{'Spanish Brunch', 'Tea'}",44
+"{'Sandwich', 'Coffee', 'Cake'}",44
+"{'Coffee', 'Pastry', 'Tea'}",44
+{'Afternoon with the baker'},43
+"{'Coffee', 'Frittata'}",43
+"{'Soup', 'Cake'}",42
+"{'Cake', 'Brownie'}",42
+"{'Sandwich', 'Hot chocolate'}",42
+"{'Coffee', 'Alfajores', 'Bread'}",41
+"{'Coffee', 'Cookies', 'Cake'}",40
+"{'Coffee', 'Jam'}",39
+"{'Cake', 'Alfajores'}",39
+"{'Hot chocolate', 'Brownie'}",39
+{'Art Tray'},38
+{'Extra Salami or Feta'},38
+"{'Coffee', 'Smoothies'}",38
+"{'Coffee', 'Juice', 'Cake'}",37
+"{'Coffee', 'Cookies', 'Tea'}",37
+"{'Sandwich', 'Truffles'}",36
+"{'Coffee', 'Bread', 'Brownie'}",36
+"{'Coffee', 'Hot chocolate', 'Pastry'}",36
+"{'Coffee', 'Bread', 'Toast'}",35
+"{'Cookies', 'Juice', 'Coffee'}",35
+"{'Cookies', 'Coffee', 'Hot chocolate'}",35
+"{'Medialuna', 'Cake'}",35
+"{'Medialuna', 'Coffee', 'Tea'}",35
+"{'Sandwich', 'Soup', 'Coffee'}",34
+"{'Hot chocolate', 'Alfajores'}",34
+"{'Hot chocolate', 'Muffin'}",34
+"{'Tea', 'Tiffin'}",33
+"{'Coffee', 'Scone', 'Bread'}",33
+"{'Coffee', 'Scone', 'Tea'}",32
+"{'Coffee', 'Extra Salami or Feta'}",31
+"{'Coffee', 'The Nomad'}",31
+"{'Sandwich', 'Mineral water'}",31
+"{'Coffee', 'Fudge'}",31
+"{'Bread', 'Fudge'}",31
+"{'Coffee', 'Tea', 'Toast'}",31
+"{'Pastry', 'Alfajores'}",31
+"{'Coffee', 'Vegan mincepie'}",30
+"{'Tea', 'Chicken Stew'}",30
+"{'Bread', 'Mineral water'}",30
+"{'Medialuna', 'Alfajores'}",30
+"{'Coffee', 'Tartine'}",29
+"{'Bakewell', 'Coffee'}",29
+"{'Cake', 'Jammie Dodgers'}",29
+"{'Truffles', 'Tea'}",29
+"{'Hot chocolate', 'Toast'}",29
+"{'Juice', 'Alfajores'}",29
+"{'Coffee', 'Alfajores', 'Tea'}",29
+"{'Medialuna', 'Hot chocolate', 'Coffee'}",29
+{'Eggs'},28
+{'Granola'},28
+"{'Coffee', 'Baguette'}",28
+"{'Hot chocolate', 'Scone'}",28
+"{'Coffee', 'Juice', 'Bread'}",28
+"{'Cookies', 'Pastry'}",28
+"{'Cake', 'Coffee', 'Scone'}",27
+"{'Alfajores', 'Brownie'}",27
+"{'Coffee', 'Tea', 'Muffin'}",27
+"{'Sandwich', 'Cookies'}",27
+"{'Art Tray', 'Coffee'}",26
+"{'Bread', 'Chicken Stew'}",26
+"{'Bread', 'Baguette'}",26
+"{'Spanish Brunch', 'Juice'}",26
+"{'Coffee', 'Soup', 'Tea'}",26
+"{'Juice', 'Muffin'}",26
+"{'Sandwich', 'Juice', 'Coffee'}",26
+"{'Farm House', 'Pastry'}",26
+"{'Sandwich', 'Tea', 'Bread'}",26
+"{'Coffee', 'Pastry', 'Cake'}",26
+"{'Bread', 'Frittata'}",25
+"{'Hearty & Seasonal', 'Bread'}",25
+"{'Cake', 'Truffles'}",25
+"{'Sandwich', 'Alfajores'}",25
+"{'Tea', 'Jammie Dodgers'}",24
+"{'Fudge', 'Jam'}",24
+"{'Pastry', 'Muffin'}",24
+"{'Juice', 'Brownie'}",24
+"{'Cookies', 'Brownie'}",24
+"{'Medialuna', 'Cookies'}",24
+"{'Sandwich', 'Hot chocolate', 'Coffee'}",24
+"{'Medialuna', 'Coffee', 'Cake'}",24
+"{'Bread', 'Smoothies'}",23
+"{'Spanish Brunch', 'Bread', 'Coffee'}",23
+"{'Coffee', 'Soup', 'Cake'}",23
+"{'Pastry', 'Scone'}",23
+"{'Cookies', 'Alfajores'}",23
+"{'Coffee', 'Bread', 'Muffin'}",23
+"{'Pastry', 'Brownie'}",23
+"{'Hot chocolate', 'Coffee', 'Brownie'}",23
+"{'Medialuna', 'Pastry', 'Bread'}",23
+"{'Pastry', 'Tea', 'Bread'}",23
+"{'Cake', 'Tiffin'}",22
+"{'Coffee', 'Bread', 'Tiffin'}",22
+"{'Spanish Brunch', 'Cake'}",22
+"{'Juice', 'Toast'}",22
+"{'Cake', 'Coffee', 'Alfajores'}",22
+"{'Coffee', 'Cake', 'Muffin'}",22
+"{'Juice', 'Pastry'}",22
+"{'Farm House', 'Medialuna'}",22
+"{'Sandwich', 'Brownie'}",22
+{'Tshirt'},21
+"{'Keeping It Local', 'Bread'}",21
+"{'Coke', 'Juice'}",21
+"{'Coke', 'Tea'}",21
+"{'Cookies', 'Toast'}",21
+"{'Cake', 'Toast'}",21
+"{'Coffee', 'Soup', 'Bread'}",21
+"{'Juice', 'Hot chocolate'}",21
+"{'Coffee', 'Tea', 'Brownie'}",21
+"{'Juice', 'Jammie Dodgers'}",20
+"{'Sandwich', 'Coffee', 'Truffles'}",20
+"{'Sandwich', 'Muffin'}",20
+"{'Medialuna', 'Juice'}",20
+"{'Coffee', 'Cake', 'Brownie'}",20
+"{'Medialuna', 'Sandwich'}",20
+"{'Medialuna', 'Tea', 'Bread'}",20
+"{'Focaccia', 'Bread'}",19
+"{'Salad', 'Bread'}",19
+"{'Salad', 'Tea'}",19
+"{'Hearty & Seasonal', 'Tea'}",19
+"{'Sandwich', 'Chicken Stew'}",19
+"{'Spanish Brunch', 'Juice', 'Coffee'}",19
+"{'Coke', 'Coffee', 'Sandwich'}",19
+"{'Juice', 'Truffles'}",19
+"{'Cookies', 'Scone'}",19
+"{'Juice', 'Scone'}",19
+"{'Coffee', 'Hot chocolate', 'Alfajores'}",19
+"{'Medialuna', 'Muffin'}",19
+"{'Coffee', 'Juice', 'Tea'}",19
+"{'Medialuna', 'Brownie'}",19
+"{'Coffee', 'Hot chocolate', 'Tea'}",19
+"{'Cake', 'Hot chocolate', 'Tea'}",19
+{'My-5 Fruit Shoot'},18
+"{'Tea', 'Frittata'}",18
+"{'Sandwich', 'Salad'}",18
+"{'Soup', 'Mineral water'}",18
+"{'Sandwich', 'Spanish Brunch'}",18
+"{'Coke', 'Bread'}",18
+"{'Medialuna', 'Toast'}",18
+"{'Sandwich', 'Toast'}",18
+"{'Soup', 'Cake', 'Tea'}",18
+"{'Hot chocolate', 'Coffee', 'Muffin'}",18
+"{""Ella's Kitchen Pouches""}",17
+"{'Granola', 'Coffee'}",17
+"{'Tea', 'The Nomad'}",17
+"{'Keeping It Local', 'Tea'}",17
+"{'Sandwich', 'Smoothies'}",17
+"{'Spanish Brunch', 'Truffles'}",17
+"{'Coke', 'Cake'}",17
+"{'Coffee', 'Truffles', 'Bread'}",17
+"{'Soup', 'Juice'}",17
+"{'Sandwich', 'Scone'}",17
+"{'Coffee', 'Hot chocolate', 'Scone'}",17
+"{'Cake', 'Scone', 'Tea'}",17
+"{'Coffee', 'Juice', 'Alfajores'}",17
+"{'Brownie', 'Muffin'}",17
+"{'Coffee', 'Juice', 'Pastry'}",17
+"{'Juice', 'Cake', 'Bread'}",17
+"{'Coffee', 'Cookies', 'Pastry'}",17
+"{'Hot chocolate', 'Cake', 'Bread'}",17
+{'Vegan Feast'},16
+"{'Extra Salami or Feta', 'Salad'}",16
+"{'Bread', 'The Nomad'}",16
+"{'Cake', 'Chicken Stew'}",16
+"{'Juice', 'Chicken Stew'}",16
+"{'Juice', 'Mineral water'}",16
+"{'Coffee', 'Tea', 'Tiffin'}",16
+"{'Pastry', 'Truffles'}",16
+"{'Soup', 'Truffles'}",16
+"{'Farm House', 'Scandinavian'}",16
+"{'Alfajores', 'Muffin'}",16
+"{'Coffee', 'Pastry', 'Alfajores'}",16
+"{'Alfajores', 'Bread', 'Tea'}",16
+"{'Cookies', 'Muffin'}",16
+"{'Tea', 'Bread', 'Brownie'}",16
+"{'Medialuna', 'Cookies', 'Coffee'}",16
+"{'Sandwich', 'Cookies', 'Coffee'}",16
+"{'Sandwich', 'Cake', 'Bread'}",16
+"{'Cake', 'Smoothies'}",15
+"{'Sandwich', 'Coffee', 'Salad'}",15
+"{'Soup', 'Chicken Stew'}",15
+"{'Cake', 'Bread', 'Jammie Dodgers'}",15
+"{'Coffee', 'Bread', 'Jammie Dodgers'}",15
+"{'Coffee', 'Cake', 'Tiffin'}",15
+"{'Coke', 'Soup'}",15
+"{'Pastry', 'Toast'}",15
+"{'Coffee', 'Cake', 'Toast'}",15
+"{'Juice', 'Coffee', 'Toast'}",15
+"{'Sandwich', 'Soup', 'Tea'}",15
+"{'Soup', 'Bread', 'Tea'}",15
+"{'Coffee', 'Cookies', 'Scone'}",15
+"{'Coffee', 'Cookies', 'Alfajores'}",15
+"{'Cookies', 'Juice', 'Tea'}",15
+"{'Farm House', 'Tea'}",15
+"{'Cookies', 'Coffee', 'Brownie'}",15
+"{'Cookies', 'Cake', 'Bread'}",15
+"{'Hot chocolate', 'Pastry', 'Bread'}",15
+"{'Pastry', 'Cake', 'Bread'}",15
+{'Crisps'},14
+"{'Bread', 'Eggs'}",14
+"{'Coffee', 'Extra Salami or Feta', 'Salad'}",14
+"{'Sandwich', 'Hearty & Seasonal'}",14
+"{'Hot chocolate', 'Jammie Dodgers'}",14
+"{'Sandwich', 'Coffee', 'Mineral water'}",14
+"{'Sandwich', 'Fudge'}",14
+"{'Spanish Brunch', 'Tea', 'Coffee'}",14
+"{'Pastry', 'Scandinavian'}",14
+"{'Alfajores', 'Scandinavian'}",14
+"{'Cake', 'Scandinavian'}",14
+"{'Hot chocolate', 'Coffee', 'Toast'}",14
+"{'Soup', 'Brownie'}",14
+"{'Medialuna', 'Scone'}",14
+"{'Scone', 'Bread', 'Tea'}",14
+"{'Sandwich', 'Coffee', 'Alfajores'}",14
+"{'Coffee', 'Alfajores', 'Brownie'}",14
+"{'Medialuna', 'Coffee', 'Alfajores'}",14
+"{'Juice', 'Coffee', 'Brownie'}",14
+"{'Juice', 'Cake', 'Tea'}",14
+"{'Farm House', 'Cake'}",14
+"{'Farm House', 'Coffee', 'Bread'}",14
+"{'Sandwich', 'Coffee', 'Brownie'}",14
+"{'Cookies', 'Bread', 'Hot chocolate'}",14
+"{'Hot chocolate', 'Tea', 'Bread'}",14
+"{'Sandwich', 'Cake', 'Tea'}",14
+{'Dulce de Leche'},13
+"{""Valentine's card""}",13
+"{'Bread', 'Vegan mincepie'}",13
+"{'Coffee', 'Bread', 'Frittata'}",13
+"{'Cake', 'Salad'}",13
+"{'Juice', 'Coffee', 'Jammie Dodgers'}",13
+"{'Cookies', 'Mineral water'}",13
+"{'Cake', 'Mineral water'}",13
+"{'Coffee', 'Bread', 'Mineral water'}",13
+"{'Hot chocolate', 'Tiffin'}",13
+"{'Scandinavian', 'Muffin'}",13
+"{'Pastry', 'Coffee', 'Toast'}",13
+"{'Scone', 'Alfajores'}",13
+"{'Sandwich', 'Coffee', 'Muffin'}",13
+"{'Cookies', 'Juice', 'Bread'}",13
+"{'Tea', 'Cake', 'Brownie'}",13
+"{'Cookies', 'Cake', 'Tea'}",13
+"{'Cookies', 'Tea', 'Bread'}",13
+"{'Medialuna', 'Coffee', 'Sandwich'}",13
+"{'Coffee', 'Cake', 'Bread', 'Tea'}",13
+{'Pick and Mix Bowls'},12
+{'Kids biscuit'},12
+{'Duck egg'},12
+"{'Bakewell', 'Tea'}",12
+"{'Cake', 'Vegan mincepie'}",12
+"{'Keeping It Local', 'Coffee', 'Bread'}",12
+"{'Coffee', 'Bread', 'Smoothies'}",12
+"{'Soup', 'Salad'}",12
+"{'Spanish Brunch', 'Salad'}",12
+"{'Hearty & Seasonal', 'Soup'}",12
+"{'Sandwich', 'Hearty & Seasonal', 'Coffee'}",12
+"{'Hearty & Seasonal', 'Bread', 'Coffee'}",12
+"{'Alfajores', 'Mineral water'}",12
+"{'Tea', 'Mineral water'}",12
+"{'Pastry', 'Jam'}",12
+"{'Tea', 'Jam'}",12
+"{'Cookies', 'Tiffin'}",12
+"{'Tea', 'Tiffin', 'Bread'}",12
+"{'Sandwich', 'Spanish Brunch', 'Coffee'}",12
+"{'Spanish Brunch', 'Cake', 'Coffee'}",12
+"{'Coke', 'Truffles'}",12
+"{'Medialuna', 'Truffles'}",12
+"{'Medialuna', 'Scandinavian'}",12
+"{'Coffee', 'Scandinavian', 'Bread'}",12
+"{'Cookies', 'Coffee', 'Toast'}",12
+"{'Soup', 'Muffin'}",12
+"{'Cookies', 'Soup'}",12
+"{'Scone', 'Brownie'}",12
+"{'Coffee', 'Juice', 'Scone'}",12
+"{'Juice', 'Coffee', 'Muffin'}",12
+"{'Cake', 'Tea', 'Muffin'}",12
+"{'Juice', 'Coffee', 'Hot chocolate'}",12
+"{'Farm House', 'Cookies'}",12
+"{'Farm House', 'Coffee', 'Medialuna'}",12
+"{'Medialuna', 'Cake', 'Tea'}",12
+"{'Pastry', 'Cake', 'Tea'}",12
+{'Mighty Protein'},11
+{'Christmas common'},11
+{'Tacos/Fajita'},11
+"{'Art Tray', 'Tea'}",11
+"{'Bakewell', 'Bread'}",11
+"{'Keeping It Local', 'Coffee', 'Tea'}",11
+"{'Spanish Brunch', 'Chicken Stew'}",11
+"{'Tiffin', 'Jammie Dodgers'}",11
+"{'Coffee', 'Tea', 'Jammie Dodgers'}",11
+"{'Coke', 'Mineral water'}",11
+"{'Truffles', 'Mineral water'}",11
+"{'Coffee', 'Bread', 'Jam'}",11
+"{'Tea', 'Fudge'}",11
+"{'Coke', 'Brownie'}",11
+"{'Coke', 'Juice', 'Coffee'}",11
+"{'Truffles', 'Brownie'}",11
+"{'Truffles', 'Alfajores'}",11
+"{'Coffee', 'Juice', 'Truffles'}",11
+"{'Medialuna', 'Coffee', 'Toast'}",11
+"{'Soup', 'Scone'}",11
+"{'Sandwich', 'Soup', 'Cake'}",11
+"{'Hot chocolate', 'Scone', 'Bread'}",11
+"{'Medialuna', 'Alfajores', 'Bread'}",11
+"{'Hot chocolate', 'Alfajores', 'Tea'}",11
+"{'Medialuna', 'Coffee', 'Muffin'}",11
+"{'Medialuna', 'Juice', 'Coffee'}",11
+"{'Sandwich', 'Juice', 'Bread'}",11
+"{'Farm House', 'Brownie'}",11
+"{'Medialuna', 'Hot chocolate', 'Bread'}",11
+"{'Medialuna', 'Coffee', 'Pastry', 'Bread'}",11
+"{'Sandwich', 'Pastry'}",11
+{'Postcard'},10
+"{'Extra Salami or Feta', 'Bread'}",10
+"{'Coffee', 'Cake', 'Vegan mincepie'}",10
+"{'Coffee', 'Cake', 'Smoothies'}",10
+"{'Juice', 'Salad'}",10
+"{'Cake', 'Coffee', 'Salad'}",10
+"{'Coffee', 'Salad', 'Bread'}",10
+"{'Truffles', 'Chicken Stew'}",10
+"{'Coke', 'Chicken Stew'}",10
+"{'Sandwich', 'Coffee', 'Chicken Stew'}",10
+"{'Cookies', 'Jammie Dodgers'}",10
+"{'Tea', 'Bread', 'Jammie Dodgers'}",10
+"{'Coffee', 'Cake', 'Jammie Dodgers'}",10
+"{'Spanish Brunch', 'Alfajores'}",10
+"{'Spanish Brunch', 'Toast'}",10
+"{'Spanish Brunch', 'Soup'}",10
+"{'Coke', 'Juice', 'Sandwich'}",10
+"{'Cake', 'Coffee', 'Truffles'}",10
+"{'Tea', 'Bread', 'Toast'}",10
+"{'Soup', 'Cake', 'Bread'}",10
+"{'Sandwich', 'Soup', 'Bread'}",10
+"{'Coffee', 'Pastry', 'Scone'}",10
+"{'Juice', 'Cookies', 'Alfajores'}",10
+"{'Alfajores', 'Bread', 'Brownie'}",10
+"{'Pastry', 'Alfajores', 'Tea'}",10
+"{'Pastry', 'Coffee', 'Muffin'}",10
+"{'Hot chocolate', 'Bread', 'Muffin'}",10
+"{'Cookies', 'Juice', 'Cake'}",10
+"{'Farm House', 'Pastry', 'Coffee'}",10
+"{'Medialuna', 'Coffee', 'Brownie'}",10
+"{'Coffee', 'Hot chocolate', 'Pastry', 'Bread'}",10
+"{'Sandwich', 'Coffee', 'Cake', 'Tea'}",10

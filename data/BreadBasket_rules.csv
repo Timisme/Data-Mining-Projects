@@ -1,0 +1,98 @@
+Min Support:10,Min Confidence:0.5
+antecedents,consequents,Confidence
+"{'Extra Salami or Feta', 'Salad'}",{'Coffee'},0.875
+"{'Pastry', 'Toast'}",{'Coffee'},0.867
+"{'Sandwich', 'Hearty & Seasonal'}",{'Coffee'},0.857
+"{'Cake', 'Vegan mincepie'}",{'Coffee'},0.833
+"{'Sandwich', 'Salad'}",{'Coffee'},0.833
+{'Extra Salami or Feta'},{'Coffee'},0.816
+{'Keeping It Local'},{'Coffee'},0.81
+"{'Cookies', 'Scone'}",{'Coffee'},0.789
+"{'Juice', 'Pastry'}",{'Coffee'},0.773
+"{'Cake', 'Salad'}",{'Coffee'},0.769
+"{'Spanish Brunch', 'Juice'}",{'Coffee'},0.731
+"{'Cake', 'Toast'}",{'Coffee'},0.714
+"{'Sandwich', 'Cake', 'Tea'}",{'Coffee'},0.714
+{'Toast'},{'Coffee'},0.704
+"{'Medialuna', 'Cake'}",{'Coffee'},0.686
+{'Art Tray'},{'Coffee'},0.684
+"{'Cake', 'Tiffin'}",{'Coffee'},0.682
+"{'Juice', 'Toast'}",{'Coffee'},0.682
+"{'Sandwich', 'Cake'}",{'Coffee'},0.677
+"{'Cake', 'Smoothies'}",{'Coffee'},0.667
+"{'Sandwich', 'Spanish Brunch'}",{'Coffee'},0.667
+"{'Medialuna', 'Cookies'}",{'Coffee'},0.667
+"{'Hot chocolate', 'Pastry', 'Bread'}",{'Coffee'},0.667
+"{'Hot chocolate', 'Pastry'}",{'Coffee'},0.667
+"{'Sandwich', 'Soup'}",{'Coffee'},0.654
+"{'Cookies', 'Alfajores'}",{'Coffee'},0.652
+"{'Juice', 'Jammie Dodgers'}",{'Coffee'},0.65
+"{'Sandwich', 'Muffin'}",{'Coffee'},0.65
+"{'Medialuna', 'Sandwich'}",{'Coffee'},0.65
+"{'Keeping It Local', 'Tea'}",{'Coffee'},0.647
+"{'Medialuna', 'Hot chocolate'}",{'Coffee'},0.644
+"{'Sandwich', 'Brownie'}",{'Coffee'},0.636
+"{'Juice', 'Scone'}",{'Coffee'},0.632
+{'Tartine'},{'Coffee'},0.63
+{'Salad'},{'Coffee'},0.626
+"{'Cookies', 'Brownie'}",{'Coffee'},0.625
+"{'Cookies', 'Hot chocolate'}",{'Coffee'},0.614
+"{'Medialuna', 'Toast'}",{'Coffee'},0.611
+{'Granola'},{'Coffee'},0.607
+"{'Hot chocolate', 'Scone'}",{'Coffee'},0.607
+"{'Cookies', 'Pastry'}",{'Coffee'},0.607
+{'Bakewell'},{'Coffee'},0.604
+"{'Cookies', 'Juice'}",{'Coffee'},0.603
+"{'Hot chocolate', 'Cake'}",{'Coffee'},0.602
+"{'Scone', 'Cake'}",{'Coffee'},0.6
+{'Spanish Brunch'},{'Coffee'},0.599
+"{'Sandwich', 'Cookies'}",{'Coffee'},0.593
+"{'Hot chocolate', 'Brownie'}",{'Coffee'},0.59
+"{'Juice', 'Alfajores'}",{'Coffee'},0.586
+"{'Juice', 'Brownie'}",{'Coffee'},0.583
+"{'Cookies', 'Cake'}",{'Coffee'},0.58
+"{'Juice', 'Truffles'}",{'Coffee'},0.579
+"{'Medialuna', 'Muffin'}",{'Coffee'},0.579
+{'Vegan mincepie'},{'Coffee'},0.577
+"{'Keeping It Local', 'Bread'}",{'Coffee'},0.571
+"{'Cookies', 'Toast'}",{'Coffee'},0.571
+"{'Juice', 'Hot chocolate'}",{'Coffee'},0.571
+"{'Sandwich', 'Hot chocolate'}",{'Coffee'},0.571
+{'Medialuna'},{'Coffee'},0.569
+"{'Cake', 'Alfajores'}",{'Coffee'},0.564
+"{'Sandwich', 'Alfajores'}",{'Coffee'},0.56
+"{'Hot chocolate', 'Alfajores'}",{'Coffee'},0.559
+"{'Sandwich', 'Truffles'}",{'Coffee'},0.556
+"{'Juice', 'Cake'}",{'Coffee'},0.552
+{'Pastry'},{'Coffee'},0.552
+"{'Medialuna', 'Juice'}",{'Coffee'},0.55
+{'Tiffin'},{'Coffee'},0.548
+"{'Soup', 'Cake'}",{'Coffee'},0.548
+"{'Spanish Brunch', 'Cake'}",{'Coffee'},0.545
+"{'Farm House', 'Medialuna'}",{'Coffee'},0.545
+{'Alfajores'},{'Coffee'},0.541
+{'Hearty & Seasonal'},{'Coffee'},0.54
+{'The Nomad'},{'Coffee'},0.534
+{'Juice'},{'Coffee'},0.534
+{'Sandwich'},{'Coffee'},0.532
+{'Frittata'},{'Coffee'},0.531
+"{'Pastry', 'Cake'}",{'Coffee'},0.531
+"{'Hot chocolate', 'Muffin'}",{'Coffee'},0.529
+"{'Medialuna', 'Pastry'}",{'Coffee'},0.529
+{'Cake'},{'Coffee'},0.527
+"{'Salad', 'Bread'}",{'Coffee'},0.526
+"{'Sandwich', 'Chicken Stew'}",{'Coffee'},0.526
+"{'Medialuna', 'Brownie'}",{'Coffee'},0.526
+"{'Coke', 'Juice'}",{'Coffee'},0.524
+{'Scone'},{'Coffee'},0.523
+"{'Bread', 'Smoothies'}",{'Coffee'},0.522
+"{'Bread', 'Frittata'}",{'Coffee'},0.52
+"{'Alfajores', 'Brownie'}",{'Coffee'},0.519
+{'Cookies'},{'Coffee'},0.518
+"{'Cake', 'Jammie Dodgers'}",{'Bread'},0.517
+"{'Pastry', 'Alfajores'}",{'Coffee'},0.516
+"{'Spanish Brunch', 'Bread'}",{'Coffee'},0.511
+"{'Tea', 'Toast'}",{'Coffee'},0.508
+{'Hot chocolate'},{'Coffee'},0.507
+{'Jammie Dodgers'},{'Coffee'},0.504
+{'Eggs'},{'Bread'},0.5

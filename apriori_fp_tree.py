@@ -5,23 +5,20 @@ import itertools
 import csv
 
 
-IBM_columns = ['customer_id', 'transaction_id', 'item_id']
-df = pd.read_table("IBM.data", sep="\s+",names=IBM_columns,index_col='transaction_id')
-
 
 start_time = time.time()
-transactions = []
-for transaction_id in list(df.index.unique()):
-    if type(df.loc[transaction_id]['item_id']) == np.int64:
-        transactions.append([df.loc[transaction_id]['item_id']])
-    else:
-        transactions.append(df.loc[transaction_id]['item_id'].tolist())
+file = 'data\\BreadBasket_list.csv'
+# file ='data\\IBM_transaction.csv'
+file_freq = 'data\\BreadBasket_freq.csv'
+file_rule = 'data\\BreadBasket_rules.csv'
+with open(file,newline='') as file:
+	contents = csv.reader(file)
+	transactions  = [row for row in contents if row]
 end_time = time.time()
 
-# transactions = [[953, 1484, 2561, 3320], [953, 1484, 2561, 3320], [953, 1484, 1725, 2561, 2886, 3320, 3503], [953, 1484, 2561, 3320], [756, 953, 1484, 2561, 2858, 2909, 3320], [953, 1484, 2561, 3320], [953, 1484, 2561, 3320, 3699], [953, 1484, 2561, 3320], [953, 1484, 2561, 3320], [7, 953, 1484, 2561, 3320, 3639, 3970], [953, 1484, 2561, 3320], [953, 1484, 2561, 3320], [953, 1484, 2561, 3320]]
+# print('Transactions:\n',transactions[:10])
 print('Data Reading takes {:3f} seconds'.format(end_time - start_time))
 print('there are {} transactions'.format(len(transactions)))
-#transactions = [['HotDogs', 'Buns', 'Ketchup'],['HotDogs', 'Buns'],['HotDogs', 'Coke', 'Chips'],['Chips', 'Coke'],['Chips', 'Ketchup'],['HotDogs', 'Coke', 'Chips']]
 
 def get_transaction_dict(transactions):
 	transactions_dict = {}
@@ -31,7 +28,6 @@ def get_transaction_dict(transactions):
 
 transactions_dict = get_transaction_dict(transactions)
 
-# print('transaction_dict:',transactions_dict)
 
 def get_fp_tree(_transactions_dict, min_support): #_transactions_dict : {'frozenset()':int}
 	
@@ -66,7 +62,6 @@ def get_fp_tree(_transactions_dict, min_support): #_transactions_dict : {'frozen
 				freq_item_dict[item] = _headerTable[item][0] #針對每筆trans做排序，建立為該trans的dict以儲存該item的suppor #
 		if len(freq_item_dict) > 0:
 			sorted_transaction = [x[0] for x in sorted(freq_item_dict.items(),key = lambda x : (x[1],x[0]),reverse=True)]
-			# print('sorted_transaction',sorted_transaction)
 			# 將 sorted_transaction 加入 fp_tree 中
 			insert_to_tree(sorted_transaction, root_node, _headerTable, count)
 	return root_node, _headerTable, freq_items_dict_
@@ -125,6 +120,7 @@ def find_all_prefixPath(item_node): #針對所有該 K1 item 鏈結之 nodes 各
 	return conditional_patterns_dict
 
 def mineTree(TreeClass, headerTable_dict, min_support, prefixPath, freq_item_list, freq_pattern_dict):
+	# print('Mining Tree...',end='\r')
 	item_sorted = [x[0] for x in sorted(headerTable_dict.items(),key= lambda x:x[1][0],reverse = False)] #將item依照其support降冪排序#
 	#print('item sorted',item_sorted)
 	for item in item_sorted : 
@@ -143,6 +139,41 @@ def mineTree(TreeClass, headerTable_dict, min_support, prefixPath, freq_item_lis
 	return freq_item_list
 
 
+def rule_generator(freq_itemset, _candidate_sets, init_num, min_confidence, rules_list): #['4','3','2','1'] 
+	if len(freq_itemset) == 1 :
+		return 
+	elif init_num > len(freq_itemset):
+		return 
+	elif len(freq_itemset) > 1:
+		if init_num == 1 : #第一層
+			# print('Each freq pattern Rule Generating...')
+			_candidate_sets = [frozenset(subset) for subset in list(itertools.combinations(freq_itemset,len(freq_itemset)-1))] #[{'4', '2', '3'}, {'4', '3', '1'}, {'4', '2', '1'}, {'1', '2', '3'}]
+			_candidate_sets = list(dict.fromkeys(_candidate_sets))
+
+			init_num += 1 
+			rule_generator(freq_itemset, _candidate_sets, init_num, min_confidence, rules_list)
+		else : 
+			pruned_subsets = [(set(subset),set(freq_itemset)-set(subset),round(freq_pattern_dict[frozenset(freq_itemset)] / freq_pattern_dict[frozenset(subset)],3)) for subset in _candidate_sets if (freq_pattern_dict[frozenset(freq_itemset)] / freq_pattern_dict[frozenset(subset)]) >= min_confidence]
+			if pruned_subsets != []:
+				rules_list.append(pruned_subsets)
+				candidate_sets = []
+				for i in range(len(pruned_subsets)-1):
+					for j in range(i+1, len(pruned_subsets)):
+						if pruned_subsets[i][0].intersection(pruned_subsets[j][0]) != set():
+						 candidate_sets.append(pruned_subsets[i][0].intersection(pruned_subsets[j][0]))
+						 candidate_sets = [frozenset(candidate) for candidate in candidate_sets]
+						 candidate_sets = list(dict.fromkeys(candidate_sets))
+				if candidate_sets == []:
+					return
+				else: 
+					init_num += 1 
+					rule_generator(freq_itemset, candidate_sets,init_num, min_confidence, rules_list)
+			else:
+				return
+
+'''
+Frequent Pattern fp Tree  
+'''
 start_time = time.time()
 min_sup = 10
 Fp_tree, HeaderTable, freq_item_dict = get_fp_tree(transactions_dict,min_support = min_sup)
@@ -159,68 +190,42 @@ for pattern in freq_patterns:
 
 print('Lk occurence:\n',occurence_dict)
 # print('First Global FP tree',Fp_tree.showtree())
-#print('HeaderTable:\n',HeaderTable)
 print('mining process takes {:.3f} seconds'.format(end_time-start_time))
 # print('frequent patterns:\n', freq_patterns)
 # print('frequent pattern dict\n',freq_pattern_dict)
 
-def rule_generator(freq_itemset, _candidate_sets, init_num, min_confidence, rules_list): #['4','3','2','1'] 
-	
-	if len(freq_itemset) == 1 :
-		return 
-	elif init_num > len(freq_itemset):
-		return 
-	elif len(freq_itemset) > 1:
-		if init_num == 1 : #第一層
-			_candidate_sets = [set(subset) for subset in list(itertools.combinations(freq_itemset,len(freq_itemset)-1))] #[{'4', '2', '3'}, {'4', '3', '1'}, {'4', '2', '1'}, {'1', '2', '3'}]
-			#print('candidate_sets for init = 1\n',_candidate_sets)
-			init_num += 1 
-			rule_generator(freq_itemset, _candidate_sets, init_num, min_confidence, rules_list)
-		else : 
-			pruned_subsets = [(set(subset),set(freq_itemset)-set(subset),round(freq_pattern_dict[frozenset(freq_itemset)] / freq_pattern_dict[frozenset(subset)],3)) for subset in _candidate_sets if (freq_pattern_dict[frozenset(freq_itemset)] / freq_pattern_dict[frozenset(subset)]) >= min_confidence]
-			# [('4', '3', '1'), ('4', '2', '1'), ('3', '2', '1')]
-			if pruned_subsets != []:
-				rules_list.append(pruned_subsets)
-				#print('pruned_subsets:\n',pruned_subsets)
-				candidate_sets = []
-				for i in range(len(pruned_subsets)-1):
-					for j in range(i+1, len(pruned_subsets)):
-						if pruned_subsets[i][0].intersection(pruned_subsets[j][0]) != set():
-							##print('k-1 subset:',(pruned_subsets[i][0].intersection(pruned_subsets[j][0]), pruned_subsets[i][1].union(pruned_subsets[j][1])))
-						 candidate_sets.append(pruned_subsets[i][0].intersection(pruned_subsets[j][0]))
-				if candidate_sets == []:
-					return
-				else: 
-					#print('k{} candidate sets:\n'.format(init_num), candidate_sets)
-					init_num += 1 
-					rule_generator(freq_itemset, candidate_sets,init_num, min_confidence, rules_list)
-			else:
-				return
 
+with open(file_freq,'w') as file:
+ 	file_writer = csv.writer(file, delimiter=',')
+ 	file_writer.writerow(['min_support:{}'.format(min_sup)])
+ 	file_writer.writerow(['Frequent Pattern','Support'])
+ 	freq_dict_sorted = {key:value for key,value in sorted(freq_pattern_dict.items(), key = lambda item: item[1], reverse= True)}
+ 	for freq_pattern, support in freq_dict_sorted.items():
+ 		file_writer.writerow([set(freq_pattern),support])
+
+'''
+Rule Generation 
+'''
 start_time = time.time()
 rules_list = []
+min_conf = 0.5
 for freq_pattern in freq_patterns:
 	rules = []
-	rule_generator(list(freq_pattern),set(),1,0.6,rules)
+	rule_generator(list(freq_pattern),set(),1,min_conf,rules)
 	if (rules != []) & (rules not in rules_list):
 		rules_list.append(rules)
-		# print('rules:\n',rules)
 end_time = time.time()
 print('rule generating takes {:.3f} seconds'.format(end_time-start_time))
 flattened_rules = [val for rule1 in rules_list for rule2 in rule1 for val in rule2]
-ordered_rules = sorted(flattened_rules,key = lambda x : x[2],reverse = True)
-# print('Rule Generated:\n',rules_list)
-# print('ordered Rule Generated:\n',ordered_rules)
-final_rules = []
-for rule in ordered_rules:
-	if rule not in final_rules:
-		final_rules.append(rule)
-# print('final_rules:',final_rules)
+final_rules = sorted(flattened_rules,key = lambda x : x[2],reverse = True)
 print('# of Rules:',len(final_rules))
-with open('rules.csv','w') as csv_file:
+print('writing to csv...')
+with open(file_rule,'w') as csv_file:
 	# fieldnames = ['item','associated itemset','confidence']
-	csv_writer = csv.writer(csv_file, delimiter='\t')
-	# csv_writer.writeheader()
+	csv_writer = csv.writer(csv_file, delimiter=',')
+	csv_writer.writerow(['Min Support:{}'.format(min_sup),'Min Confidence:{}'.format(min_conf)])
+	csv_writer.writerow(['antecedents','consequents','Confidence'])
 	for rule in final_rules:
 		csv_writer.writerow(rule)
+print('writing done!')
 
