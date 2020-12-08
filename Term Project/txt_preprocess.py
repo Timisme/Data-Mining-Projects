@@ -11,6 +11,7 @@ class preprocess:
 
 		data_list, data_list_tmp = list(), list()
 		article_id_list=list()
+		# article_id_list = list()
 		idx=0
 
 		for row in data:
@@ -18,7 +19,9 @@ class preprocess:
 			if row == '\n':
 				article_id_list.append(idx)
 				idx+=1
+				# data_list_tmp.append(('[SEP]','[SEP]'))
 				data_list.append(data_list_tmp)
+				# data_list_tmp = [('[CLS]','[CLS]')]
 				data_list_tmp = []
 			else:
 				row = row.strip('\n').split(' ')
@@ -59,7 +62,6 @@ class preprocess:
 
 				stc += word
 				labels.append(label)
-
 				if ((idx+1) % max_stc_len) == 0 : #整除
 					stcs.append(stc)
 					art_labels.append(labels)
@@ -104,3 +106,17 @@ class preprocess:
 			stc_label_ids = [tag_to_id[label] for label in stc_labels]
 			label2id.append(stc_label_ids)
 		return label2id
+
+
+if __name__ == '__main__':
+
+	file_path = 'data/train_input.data'
+
+	with open(file_path, 'r', encoding='utf-8') as f:
+		data=f.readlines()#.encode('utf-8').decode('utf-8-sig')
+
+	preprocessor = preprocess(data)
+	stcs, labels = preprocessor.get_scts_labels(max_stc_len=50)
+	print(stcs[:2])
+	# print(data[:10])
+

@@ -16,8 +16,11 @@ class Bert_BiLstm_Crf(nn.Module):
 		self.bert = BertModel.from_pretrained(pretrained_model_name)
 		# self.bert.eval()  # 知用来取bert embedding
 
-		self.start_label_id = tokenizer.cls_token_id
-		self.end_label_id =  tokenizer.sep_token_id
+		# self.start_label_id = tokenizer.cls_token_id
+		# self.end_label_id =  tokenizer.sep_token_id
+
+		self.start_label_id = 25
+		self.end_label_id = 26
 
 		# self.transitions.data[self.start_label_id, :] = -10000
 		# self.transitions.data[:, self.end_label_id] = -10000
@@ -133,8 +136,8 @@ class Bert_BiLstm_Crf(nn.Module):
 		score, tag_seq = self._viterbi_decode(lstm_feats)
 		return score, tag_seq
 
-	def neg_log_likelihood(self, sentence, tags):
-	    feats = self._get_lstm_features(sentence)  #[batch_size, max_len, 16]
+	def neg_log_likelihood(self, input_ids, attention_mask, tags):
+	    feats = self._get_lstm_features(input_ids, attention_mask)  #[batch_size, max_len, 16]
 	    forward_score = self._forward_alg(feats)
 	    gold_score = self._score_sentence(feats, tags)
 	    return torch.mean(forward_score - gold_score)
