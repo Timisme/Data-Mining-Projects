@@ -1,4 +1,4 @@
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 import torch
 
 class bert_stc_dataset(Dataset):
@@ -39,6 +39,5 @@ class bert_stc_dataset(Dataset):
         return {
             'input_ids': encoding['input_ids'].flatten(),
             'attention_mask': encoding['attention_mask'].flatten(),
-            'label' : torch.tensor(self.pad_labels[idx], dtype= torch.long)
+            'labels' : torch.tensor(self.pad_labels[idx], dtype= torch.long)
         }
-        

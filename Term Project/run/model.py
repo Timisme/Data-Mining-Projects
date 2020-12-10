@@ -4,7 +4,7 @@ from transformers import BertModel, BertTokenizer
 
 class Bert_BiLstm_Crf(nn.Module):
 
-	def __init__(self, n_tags, tokenizer, pretrained_model_name, hidden_dim=768):
+	def __init__(self, n_tags, hidden_dim=768):
 		super(Bert_BiLstm_Crf, self).__init__()
 		self.n_tags = n_tags
 		self.lstm =  nn.LSTM(bidirectional=True, num_layers=2, input_size=768, hidden_size=hidden_dim//2, batch_first=True)
@@ -13,7 +13,7 @@ class Bert_BiLstm_Crf(nn.Module):
 		))
 		self.hidden_dim = hidden_dim
 		self.fc = nn.Linear(hidden_dim, self.n_tags)
-		self.bert = BertModel.from_pretrained(pretrained_model_name)
+		self.bert = BertModel.from_pretrained('bert-base-chinese')
 		# self.bert.eval()  # 知用来取bert embedding
 
 		self.start_label_id = 25
@@ -23,6 +23,22 @@ class Bert_BiLstm_Crf(nn.Module):
 		self.transitions.data[:, self.end_label_id] = -10000
 		self.device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 		self.transitions.to(self.device)
+
+	def argmax(self, vec):
+    # return the argmax as a python int
+		_, idx = torch.max(vec, 1)
+		return idx.item()
+
+	# Compute log sum exp in a numerically stable way for the forward algorithm
+	def log_sum_exp(self, vec):
+		max_score = vec[0, argmax(vec)]
+		max_score_broadcast = max_score.view(1, -1).expand(1, vec.size()[1])
+		return max_score + \
+			torch.log(torch.sum(torch.exp(vec - max_score_broadcast)))
+
+	def log_sum_exp_batch(self, log_Tensor, axis=-1): # shape (batch_size,n,m)
+		return torch.max(log_Tensor, axis)[0] + \
+			torch.log(torch.exp(log_Tensor-torch.max(log_Tensor, axis)[0].view(log_Tensor.shape[0],-1,1)).sum(axis))
 
 	def init_hidden(self):
 	# Two tensors to hold hidden states, one for each
@@ -50,10 +66,10 @@ class Bert_BiLstm_Crf(nn.Module):
 		# feats: sentances -> word embedding -> lstm -> MLP -> feats
 		# feats is the probability of emission, feat.shape=(1,tag_size)
 		for t in range(1, max_seq_len):
-		    log_alpha = (log_sum_exp_batch(self.transitions + log_alpha, axis=-1) + feats[:, t]).unsqueeze(1)
+		    log_alpha = (self.log_sum_exp_batch(self.transitions + log_alpha, axis=-1) + feats[:, t]).unsqueeze(1)
 
 		# log_prob of all barX
-		log_prob_all_barX = log_sum_exp_batch(log_alpha)
+		log_prob_all_barX = self.log_sum_exp_batch(log_alpha)
 		return log_prob_all_barX
 
 	def _score_sentence(self, feats, label_ids):
@@ -137,7 +153,7 @@ class Bert_BiLstm_Crf(nn.Module):
 
 	    # Find the best path, given the features.
 		score, tag_seq = self._viterbi_decode(lstm_feats)
-		return score, tag_seq
+		return score, tag_seq # [batchsize, max_seq_len]
 
 	def neg_log_likelihood(self, input_ids, attention_mask, tags):
 	    feats = self._get_lstm_features(input_ids, attention_mask)  #[batch_size, max_len, n_tags]

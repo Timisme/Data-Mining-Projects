@@ -107,5 +107,5 @@ if __name__ == '__main__':
 	with open(file_path, 'r', encoding='utf-8') as f:
 		data=f.readlines()
 	stcs, labels = preprocess2(data= data).get_stcs_label2ids()
-	print(stcs[0])
-	print(labels[0])
+	print('output stc idx = 0:\n',stcs[0])
+	print('output label idx = 0\n',labels[0])
