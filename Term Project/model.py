@@ -57,15 +57,18 @@ class Bert_BiLstm_Crf(nn.Module):
 		return log_prob_all_barX
 
 	def _score_sentence(self, feats, label_ids):
-		T = feats.shape[1]
+		# label_ids : [batch_size, max_seq_len]
+		# score : [batch_size, 1]
+
+		max_seq_len = feats.shape[1]
 		batch_size = feats.shape[0]
 
 		batch_transitions = self.transitions.expand(batch_size,self.n_tags, self.n_tags)
 		batch_transitions = batch_transitions.flatten(1)
 
-		score = torch.zeros((feats.shape[0],1)).to(self.device)
+		score = torch.zeros((batch_size,1)).to(self.device)
 		# the 0th node is start_label->start_word,the probability of them=1. so t begin with 1.
-		for t in range(1, T):
+		for t in range(1, max_seq_len):
 		    score = score + \
 		        batch_transitions.gather(-1, (label_ids[:, t]*self.n_tags+label_ids[:, t-1]).view(-1,1)) \
 		            + feats[:, t].gather(-1, label_ids[:, t].view(-1,1)).view(-1,1)
