@@ -51,7 +51,7 @@ class model_crf(nn.Module):
 		# tags : [batchsize, n_tags]
 		lstm_feats = self._get_lstm_features(input_ids= input_ids, attention_mask= attention_mask)
 		
-		loss = -self.CRF(lstm_feats, tags, mask)
+		loss = -self.CRF(lstm_feats, tags, attention_mask.bool())
 
 		return loss 
 

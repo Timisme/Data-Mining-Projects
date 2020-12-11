@@ -92,4 +92,4 @@ if __name__ == '__main__':
     # print(batch['attention_mask'].bool())
     pred_seq = model(batch['input_ids'], batch['attention_mask'].bool())
 
-    print(pred_seq)
+    print('pred seq:\n',pred_seq)

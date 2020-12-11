@@ -1,4 +1,5 @@
-from model import Bert_BiLstm_Crf
+# from model import Bert_BiLstm_Crf
+from model2 import model_crf
 from dataset import bert_stc_dataset
 from txt_preprocess2 import preprocess2
 from train import train
@@ -17,15 +18,18 @@ with open(file_path, 'r', encoding='utf-8') as f:
 
 preprocessor = preprocess2(data)
 
-stcs, labels = preprocessor.get_stcs_label2ids()
-tag2id_dict = preprocessor.tag2id(labels)
+stcs, labels = preprocess2(data= data).get_stcs_label2ids()
+stcs, raw_labels = preprocess2(data= data).get_stc_label()
+tag2id_dict = preprocess2(data= data).tag2id(raw_labels)
 n_tags = len(tag2id_dict)
-print('tags數: {}'.format(n_tags))
+print('n_tags', n_tags)
+print(tag2id_dict)
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-chinese')
+max_length = max([len(txt) for txt in stcs])
 
 # ---------------模型---------------
-model = Bert_BiLstm_Crf(n_tags= n_tags).to(device)
+model = model_crf(n_tags= n_tags).to(device)
 
 train_dataset = bert_stc_dataset(stcs= stcs, labels= labels, tokenizer= tokenizer, max_length= 300)
 train_dataloader = DataLoader(train_dataset, batch_size= 10, shuffle= True)
@@ -33,7 +37,7 @@ train_dataloader = DataLoader(train_dataset, batch_size= 10, shuffle= True)
 optimizer = torch.optim.Adam(model.parameters(), lr = 1e-4)
 
 # ---------------訓練---------------
-# train_model = train(model= model, optimizer= optimizer, train_loader= train_dataloader, test_loader= 0, num_epochs= 5, device= device)
+train_model = train(model= model, optimizer= optimizer, train_loader= train_dataloader, test_loader= 0, num_epochs= 5, device= device)
 
 
 
