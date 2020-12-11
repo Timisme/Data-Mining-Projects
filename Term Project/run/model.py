@@ -133,7 +133,7 @@ class Bert_BiLstm_Crf(nn.Module):
 		with torch.no_grad():
 			encoded_layer, _  = self.bert(input_ids, attention_mask)
 			# enc = encoded_layer[-1]
-			print('out encoded size from bert: {}'.format(encoded_layer.size()))
+			# print('out encoded size from bert: {}'.format(encoded_layer.size()))
 		return encoded_layer
 
 	def _get_lstm_features(self, input_ids, attention_mask):

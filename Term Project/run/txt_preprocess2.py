@@ -46,13 +46,15 @@ class preprocess2:
 
 			txt_len = len(article_txt_tuple) #(文章數，每個文章對應的總字數) (word, label)
 			stc = str() #存字數= max_stc_len的字串
-			labels = list() # 存該字串對應的label
+			labels = ['[CLS]'] # 存該字串對應的label
 
 			for idx, (word, label) in enumerate(article_txt_tuple):
 
 				stc += word
 				labels.append(label)
 
+			labels.append('[SEP]')
+			
 			all_stcs.append(stc)
 			all_labels.append(labels)
 
@@ -78,8 +80,8 @@ class preprocess2:
 		for idx, label in enumerate(labels_set):
 			tag2id_dict[label] = idx
 
-		tag2id_dict['[CLS]'] = len(tag2id_dict)
-		tag2id_dict['[SEP]'] = len(tag2id_dict) + 1
+		# tag2id_dict['[CLS]'] = len(tag2id_dict) 
+		# tag2id_dict['[SEP]'] = len(tag2id_dict)
 
 		return tag2id_dict
 

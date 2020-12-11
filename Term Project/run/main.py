@@ -28,12 +28,12 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-chinese')
 model = Bert_BiLstm_Crf(n_tags= n_tags).to(device)
 
 train_dataset = bert_stc_dataset(stcs= stcs, labels= labels, tokenizer= tokenizer, max_length= 300)
-train_dataloader = DataLoader(train_dataset, batch_size= 64, shuffle= True)
+train_dataloader = DataLoader(train_dataset, batch_size= 10, shuffle= True)
 
 optimizer = torch.optim.Adam(model.parameters(), lr = 1e-4)
 
 # ---------------訓練---------------
-train_model = train(model= model, optimizer= optimizer, train_loader= train_dataloader, test_loader= 0, num_epochs= 5, device= device)
+# train_model = train(model= model, optimizer= optimizer, train_loader= train_dataloader, test_loader= 0, num_epochs= 5, device= device)
 
 
 
