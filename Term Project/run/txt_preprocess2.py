@@ -46,14 +46,15 @@ class preprocess2():
 
 			txt_len = len(article_txt_tuple) #(文章數，每個文章對應的總字數) (word, label)
 			stc = str() #存字數= max_stc_len的字串
-			labels = ['[CLS]'] # 存該字串對應的label
+			# labels = ['[CLS]'] # 存該字串對應的label # pytorch crf不需要
+			labels = []
 
 			for idx, (word, label) in enumerate(article_txt_tuple):
 
 				stc += word
 				labels.append(label)
 
-			labels.append('[SEP]')
+			# labels.append('[SEP]') # pytorch crf 不需要sep
 			
 			all_stcs.append(stc)
 			all_labels.append(labels)
@@ -74,12 +75,21 @@ class preprocess2():
 
 			all_labels_clean.append(label)
 
+		# 這一步就先把label 做 0 padding
+
+		max_length = len(max(all_stcs_clean, key=len)) 
+		pad_labels = []
+
+		for i in range(len(all_labels_clean)):
+			temp_label = ['[PAD]']*max_length
+			temp_label[:len(all_labels_clean[i])] = all_labels_clean[i]
+			pad_labels.append(temp_label)
 
 		print('sentences總數: {}'.format(len(all_stcs)))
 		print('labels總數: {}'.format(len(all_labels)))
 		# print(all_stcs[0])
 		# print(all_labels[0])
-		return all_stcs_clean, all_labels_clean
+		return all_stcs_clean, pad_labels
 
 	def tag2id(self, stcs_label):
 
@@ -89,10 +99,12 @@ class preprocess2():
 				all_label.append(label)
 
 		labels_set = sorted(set(all_label))
-		tag2id_dict = dict()
+		tag2id_dict = {'[PAD]':0} #固定將PAD id設為0
 
+		labels_set.remove('[PAD]')
+		
 		for idx, label in enumerate(labels_set):
-			tag2id_dict[label] = idx
+			tag2id_dict[label] = idx+1
 
 		# tag2id_dict['[CLS]'] = len(tag2id_dict) 
 		# tag2id_dict['[SEP]'] = len(tag2id_dict)
@@ -123,21 +135,9 @@ if __name__ == '__main__':
 	with open(file_path, 'r', encoding='utf-8') as f:
 		data=f.readlines()
 	stcs, labels = preprocess2(data= data).get_stcs_label2ids()
-	print('output stc idx = 0:\n',stcs[:10])
-	print('output label idx = 0\n',labels[:10])
+	print('output stc idx = 0:\n',stcs[0])
+	print('output label idx = 0\n',labels[0])
 
 	print(max(stcs, key=len))
 	print(len(max(stcs, key=len)))
-
-	# txt = '醫師：回去還好嗎'
-	# label = labels[0]
-	# txt_clean = re.sub(r'(醫師：)|(個管師：)|(民眾：)|(家屬：)|(護理師：)', '', txt)
-	# print(txt_clean)
-
-	# len_diff = len(txt) - len(txt_clean)
-	# print(len_diff)
-
-	# del label[1:1+len_diff]
-
-	# print(label)
 

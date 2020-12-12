@@ -9,12 +9,13 @@ class bert_stc_dataset(Dataset):
         self.labels = labels
         self.tokenizer = tokenizer
         self.max_length = max_length
-        self.pad_labels = []
+        # self.pad_labels = []
 
-        for i in range(len(labels)):
-            temp_label = [0]*max_length
-            temp_label[:len(labels[i])] = labels[i]
-            self.pad_labels.append(temp_label)
+        #已經在preprocess2 做完label 0 padding
+        # for i in range(len(labels)):
+        #     temp_label = [0]*max_length
+        #     temp_label[:len(labels[i])] = labels[i]
+        #     self.pad_labels.append(temp_label)
             
         
     def __len__(self):
@@ -30,7 +31,7 @@ class bert_stc_dataset(Dataset):
 #             truncation= True,
             max_length= self.max_length,
             padding = 'max_length',
-            add_special_tokens=True,
+            add_special_tokens=False,
 #             pad_to_multiple_of=True,
             return_attention_mask= True,
             return_token_type_ids= False,
@@ -39,7 +40,7 @@ class bert_stc_dataset(Dataset):
         return {
             'input_ids': encoding['input_ids'].flatten(),
             'attention_mask': encoding['attention_mask'].flatten(),
-            'labels' : torch.tensor(self.pad_labels[idx], dtype= torch.long)
+            'labels' : torch.tensor(self.labels[idx], dtype= torch.long)
         }
 
 if __name__ == '__main__':
@@ -65,31 +66,34 @@ if __name__ == '__main__':
 
     dataset = bert_stc_dataset(stcs= stcs, labels=labels, tokenizer= tokenizer, max_length= max_length)
 
-    # print('attention_mask:', dataset[0]['attention_mask'])
+    print('input_ids', dataset[0]['input_ids'])
+    print('attention_mask:', dataset[0]['attention_mask'])
+    print('label:', dataset[0]['labels'])
 
-    dataloader = DataLoader(dataset, batch_size= 10, shuffle= True)
 
-    batch= next(iter(dataloader))
-    print('batch mask size: ',batch['attention_mask'].size())
+    # dataloader = DataLoader(dataset, batch_size= 10, shuffle= True)
 
-    # print(batch['attention_mask'].permute(1,0).size())
-    # print('label: ', batch['labels'])
+    # batch= next(iter(dataloader))
+    # print('batch mask size: ',batch['attention_mask'].size())
 
-    labels = batch['labels'].numpy()
-    masks = batch['attention_mask'].numpy()
-    # masked_list = (labels*mask).numpy()
+    # # print(batch['attention_mask'].permute(1,0).size())
+    # # print('label: ', batch['labels'])
 
-    labels_nopad = []
-    for label , seq_mask in zip(labels, masks):
+    # labels = batch['labels'].numpy()
+    # masks = batch['attention_mask'].numpy()
+    # # masked_list = (labels*mask).numpy()
 
-        seq = [tag for tag, mask in zip(label, seq_mask) if mask == 1]
-        labels_nopad.append(seq)
+    # labels_nopad = []
+    # for label , seq_mask in zip(labels, masks):
 
-    print('batch_ids\n',batch['input_ids'])
-    print('未Padding的gt labels:\n',labels_nopad)
-    model = model_crf(n_tags= n_tags)
+    #     seq = [tag for tag, mask in zip(label, seq_mask) if mask == 1]
+    #     labels_nopad.append(seq)
 
-    # print(batch['attention_mask'].bool())
-    pred_seq = model(batch['input_ids'], batch['attention_mask'].bool())
+    # print('batch_ids\n',batch['input_ids'])
+    # print('未Padding的gt labels:\n',labels_nopad)
+    # model = model_crf(n_tags= n_tags)
 
-    print('pred seq:\n',pred_seq)
+    # # print(batch['attention_mask'].bool())
+    # pred_seq = model(batch['input_ids'], batch['attention_mask'].bool())
+
+    # print('pred seq:\n',pred_seq)
