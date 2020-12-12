@@ -1,6 +1,6 @@
-# from sklearn.model_selection import train_test_split
-	# print(data[:10])
-class preprocess2:
+import re
+
+class preprocess2():
 	def __init__(self, data):
 		self.data = data
 		self.article_id_list = list()
@@ -21,12 +21,12 @@ class preprocess2:
 			else:
 				row = row.strip('\n').split(' ')
 
-				if row[0] in ['。', '？']:
+				if row[0] in ['。', '？','！']:
 					self.article_id_list.append(idx)
 					self.data_list.append(data_list_tmp)
 					data_list_tmp= []
 
-				else:
+				elif row[0] not in ['摁','嗯','啦','喔','欸','啊','齁']:
 					data_tuple = (row[0], row[1])
 					data_list_tmp.append(data_tuple)
 				#data_list_tmp 儲存暫時的data_tuple(token,label)
@@ -58,14 +58,28 @@ class preprocess2:
 			all_stcs.append(stc)
 			all_labels.append(labels)
 
-		# stcs = [txt for art_txt in all_stcs for txt in art_txt]
-		# labels = [label for art_label in all_labels for label in art_label]
+		all_stcs_clean = []
+		all_labels_clean = []
+
+		for stc, label in zip(all_stcs,all_labels):
+			
+			stc_clean = re.sub(r'(醫師：)|(個管師：)|(民眾：)|(家屬：)|(護理師：)', '', stc)
+			all_stcs_clean.append(stc_clean)
+
+			len_diff = len(stc) - len(stc_clean)
+			
+			if len_diff >= 3:
+
+				del label[1:1+len_diff]
+
+			all_labels_clean.append(label)
+
 
 		print('sentences總數: {}'.format(len(all_stcs)))
 		print('labels總數: {}'.format(len(all_labels)))
-		print(all_stcs[0])
-		print(all_labels[0])
-		return all_stcs, all_labels
+		# print(all_stcs[0])
+		# print(all_labels[0])
+		return all_stcs_clean, all_labels_clean
 
 	def tag2id(self, stcs_label):
 
@@ -109,5 +123,21 @@ if __name__ == '__main__':
 	with open(file_path, 'r', encoding='utf-8') as f:
 		data=f.readlines()
 	stcs, labels = preprocess2(data= data).get_stcs_label2ids()
-	print('output stc idx = 0:\n',stcs[0])
-	print('output label idx = 0\n',labels[0])
+	print('output stc idx = 0:\n',stcs[:10])
+	print('output label idx = 0\n',labels[:10])
+
+	print(max(stcs, key=len))
+	print(len(max(stcs, key=len)))
+
+	# txt = '醫師：回去還好嗎'
+	# label = labels[0]
+	# txt_clean = re.sub(r'(醫師：)|(個管師：)|(民眾：)|(家屬：)|(護理師：)', '', txt)
+	# print(txt_clean)
+
+	# len_diff = len(txt) - len(txt_clean)
+	# print(len_diff)
+
+	# del label[1:1+len_diff]
+
+	# print(label)
+
