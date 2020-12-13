@@ -4,26 +4,19 @@ from torchcrf import CRF
 from transformers import BertModel
 
 class model_crf(nn.Module):
-	def __init__(self, n_tags, hidden_dim=768, bert_train= True):
+	def __init__(self, n_tags, hidden_dim=768, train= True):
 		super(model_crf, self).__init__()
 		self.n_tags = n_tags
-		self.lstm =  nn.LSTM(bidirectional=True, num_layers=2, input_size=768, hidden_size=hidden_dim//2, batch_first=True)
-		# self.transitions = nn.Parameter(torch.randn(
-		#     self.n_tags, self.n_tags))
-		
+		self.lstm =  nn.LSTM(bidirectional=True, num_layers=2, input_size=768, hidden_size=hidden_dim//2, batch_first=True)		
 		self.hidden_dim = hidden_dim
 		self.fc = nn.Linear(hidden_dim, self.n_tags)
 		self.bert = BertModel.from_pretrained('bert-base-chinese')
-		self.bert_train = bert_train
+		if train:
+			self.bert.train()
+			self.lstm.train()
+
 		# self.bert.eval()  # 知用来取bert embedding
-
-		# self.start_label_id = 25
-		# self.end_label_id = 26
-
-		# self.transitions.data[self.start_label_id, :] = -10000
-		# self.transitions.data[:, self.end_label_id] = -10000
 		self.device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-		# self.transitions.to(self.device)
 		self.CRF = CRF(n_tags, batch_first= True)
 
 	def init_hidden(self):
@@ -48,6 +41,12 @@ class model_crf(nn.Module):
 	    embeds = self._bert_enc(input_ids, attention_mask)
 	    enc, _ = self.lstm(embeds)
 	    lstm_feats = self.fc(enc)
+
+	    # data imbalance 處理
+
+	    # lstm_feats[:,:,1:-1] = lstm_feats[:,:,1:-1]*0.001 
+
+	    # print(lstm_feats)
 	    return lstm_feats 
 
 	def neg_log_likelihood(self, input_ids, attention_mask, tags):
@@ -73,12 +72,13 @@ if __name__ == '__main__':
 
 	model = model_crf(n_tags= 25).to(device)
 
-	pred = model(torch.tensor([[24,24,23],[24,24,15]], dtype=torch.long).to(device),
-		torch.tensor([[1,1,1],[1,1,0]], dtype= torch.bool).to(device))
+	# pred = model(torch.tensor([[24,24,23],[24,24,15]], dtype=torch.long).to(device),
+	# 	torch.tensor([[1,1,1],[1,1,0]], dtype= torch.bool).to(device))
 
-	print(pred)
+	# print(pred)
 
-	# print(summary(model, [(128,200),(128,200)]))
+	print(summary(model, [(128,200),(128,200)]))
+	# print(model)
 	# labels = torch.tensor([[24,24,23],[24,24,15]], dtype=torch.long).numpy()
 	# masks = torch.tensor([[1,1,1],[1,1,0]], dtype= torch.long).numpy()
 	# # masked_list = (labels*mask).numpy()

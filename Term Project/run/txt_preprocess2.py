@@ -21,12 +21,12 @@ class preprocess2():
 			else:
 				row = row.strip('\n').split(' ')
 
-				if row[0] in ['。', '？','！']:
+				if row[0] in ['。', '？','！','，','～','：']:
 					self.article_id_list.append(idx)
 					self.data_list.append(data_list_tmp)
 					data_list_tmp= []
 
-				elif row[0] not in ['摁','嗯','啦','喔','欸','啊','齁']:
+				elif row[0] not in ['摁','嗯','啦','喔','欸','啊','齁','嘿','…']:
 					data_tuple = (row[0], row[1])
 					data_list_tmp.append(data_tuple)
 				#data_list_tmp 儲存暫時的data_tuple(token,label)
@@ -64,16 +64,20 @@ class preprocess2():
 
 		for stc, label in zip(all_stcs,all_labels):
 			
-			stc_clean = re.sub(r'(醫師：)|(個管師：)|(民眾：)|(家屬：)|(護理師：)', '', stc)
-			all_stcs_clean.append(stc_clean)
+			stc_clean = re.sub(r'(醫師)|(個管師)|(民眾)|(家屬)|(護理師)', '', stc)
+			# print(stc, stc_clean, label)
+			if len(stc_clean)>=2:	
+				# print(stc_clean, stc)
+				all_stcs_clean.append(stc)
 
-			len_diff = len(stc) - len(stc_clean)
-			
-			if len_diff >= 3:
+				# len_diff = len(stc) - len(stc_clean)
+				
+				# if len_diff >= 3:
 
-				del label[1:1+len_diff]
-
-			all_labels_clean.append(label)
+				# 	del label[1:1+len_diff]
+				# if len(set(label)) >= 2:
+				# 	print(stc,stc_clean, label)
+				all_labels_clean.append(label)
 
 		# 這一步就先把label 做 0 padding
 
@@ -85,8 +89,8 @@ class preprocess2():
 			temp_label[:len(all_labels_clean[i])] = all_labels_clean[i]
 			pad_labels.append(temp_label)
 
-		print('sentences總數: {}'.format(len(all_stcs)))
-		print('labels總數: {}'.format(len(all_labels)))
+		print('sentences總數: {}'.format(len(all_stcs_clean)))
+		print('labels總數: {}'.format(len(all_labels_clean)))
 		# print(all_stcs[0])
 		# print(all_labels[0])
 		return all_stcs_clean, pad_labels
@@ -102,7 +106,7 @@ class preprocess2():
 		tag2id_dict = {'[PAD]':0} #固定將PAD id設為0
 
 		labels_set.remove('[PAD]')
-		
+
 		for idx, label in enumerate(labels_set):
 			tag2id_dict[label] = idx+1
 
@@ -134,10 +138,18 @@ if __name__ == '__main__':
 
 	with open(file_path, 'r', encoding='utf-8') as f:
 		data=f.readlines()
-	stcs, labels = preprocess2(data= data).get_stcs_label2ids()
-	print('output stc idx = 0:\n',stcs[0])
-	print('output label idx = 0\n',labels[0])
 
+	stcs, pad_labels = preprocess2(data= data).get_stc_label()
+	stcs, labels = preprocess2(data= data).get_stcs_label2ids()
+	# print('output stc idx = 0:\n',stcs[:10])
+	# print('output label idx = 0\n',labels[:10])
+
+	for stc, label in zip(stcs, pad_labels):
+		if len(set(label)) > 2:
+			print(stc, label)
+
+	print(min(stcs, key=len))
 	print(max(stcs, key=len))
+	print(len(min(stcs, key=len)))
 	print(len(max(stcs, key=len)))
 
