@@ -141,15 +141,18 @@ if __name__ == '__main__':
 
 	stcs, pad_labels = preprocess2(data= data).get_stc_label()
 	stcs, labels = preprocess2(data= data).get_stcs_label2ids()
+	dict_ = preprocess2(data= data).tag2id(pad_labels)
 	# print('output stc idx = 0:\n',stcs[:10])
 	# print('output label idx = 0\n',labels[:10])
 
-	for stc, label in zip(stcs, pad_labels):
-		if len(set(label)) > 2:
-			print(stc, label)
+	# for stc, label in zip(stcs, pad_labels):
+	# 	if len(set(label)) > 2:
+	# 		print(stc, label)
 
-	print(min(stcs, key=len))
-	print(max(stcs, key=len))
-	print(len(min(stcs, key=len)))
-	print(len(max(stcs, key=len)))
+	# print(min(stcs, key=len))
+	# print(max(stcs, key=len))
+	# print(len(min(stcs, key=len)))
+	# print(len(max(stcs, key=len)))
+
+	print(dict_)
 

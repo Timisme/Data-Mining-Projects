@@ -1,1 +1,2 @@
 intro-to-nlp-with-pytorch
+run/ner_model_batch32_wup3000_lstmhd256_lre-4_40epoch.pt
