@@ -27,14 +27,35 @@ iteration ...
 '''
 
 class HITS():
-	def __init__(self, L):
-		self.L = L 
-		self.n = L.shape[0]
+	def __init__(self, filename):
+
+		I_dict = dict()
+
+		with open(filename) as f:
+			data = [tuple(line.strip().split(',')) for line in f.readlines()]
+			for node_tuple in data:
+				if node_tuple[0] not in I_dict.keys():
+					I_dict[node_tuple[0]] = [node_tuple[1]]
+				else:
+					I_dict[node_tuple[0]].append(node_tuple[1])
+
+		V = list(sorted(set(list(I_dict.keys()) + [ j for js in I_dict.values() for j in js])))
+
+		self.L = np.zeros(shape= (len(V), len(V)))
+
+		for node in I_dict.keys():
+			i = V.index(node)
+
+			for out_neighbor in I_dict[node]: 
+				j = V.index(out_neighbor)
+				
+				self.L[i, j] += 1
+
+		self.n = self.L.shape[0]
 		self.a = np.ones(self.n)
 		self.h = np.ones(self.n)
-		# self.num_iter = num_iter
 
-	def get_scores(self, epsilon= 1e-4):
+	def get_scores(self, epsilon= 1e-15):
 
 		epsilon_vector = epsilon*np.ones(self.n)
 
@@ -43,17 +64,17 @@ class HITS():
 			h_old = self.h 
 			a_old = self.a
 
-			self.a = np.dot(self.L, h_old)
-			max_score = self.a.max(axis= 0)
+			self.a = np.dot(self.L.transpose(), h_old)
+			vector_size = np.linalg.norm(self.a) # 2norm
 
-			if max_score != 0:
-				self.a = self.a * (1/max_score) # mu
+			if vector_size != 0:
+				self.a = self.a * (1/vector_size) # mu
 			# print(self.a)
 			self.h = np.dot(self.L, a_old)
-			max_score = self.h.max(axis= 0)
+			vector_size = np.linalg.norm(self.h)
 
-			if max_score != 0:
-				self.h = self.h * (1/max_score)
+			if vector_size != 0:
+				self.h = self.h * (1/vector_size)
 
 			# 當h, a更新差值對於每個Page都小於epsilon時stop 
 			if (((abs(self.h - h_old) < epsilon_vector).all()) &
@@ -63,14 +84,20 @@ class HITS():
 		return self.h, self.a
 
 def main():
-	n = 10
-	L = np.random.randint(2, size= (n, n))
 
-	hit_algo = HITS(L= L)
 
-	print(f"L : {L}")
+	filename = 'graph_5.txt'
+
+	# L = np.random.randint(2, size= (n, n))
+
+	hit_algo = HITS(filename= filename)
+
+	# print(f"L : {L}")
 	print('-'*50)
-	print(hit_algo.get_scores())
+	print('a: ', np.argmax(hit_algo.get_scores()[1]))
+	print('h: ', np.argmax(hit_algo.get_scores()[0]))
+	print('a: ', hit_algo.get_scores()[1][427])
+	print('h: ', hit_algo.get_scores()[0][194])
 
 if __name__ == '__main__':
 	main()

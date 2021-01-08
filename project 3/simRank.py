@@ -2,15 +2,17 @@
 如果两个用户相似，则与这两个用户相关联的物品也类似；
 如果两个物品类似，则与这两个物品相关联的用户也类似
 如果我们的二部图是 G(V, E) ，其中V是节点集合，E是边集合
+C : 阻尼係數 (當sim(a,b) = C*sim(A,A) = C，防止sim(a,b)= 1情況。)
 '''
 import numpy as np 
+import time 
 
 class SimRank():
 	def __init__(self, filename, C= 0.8):
 
 		with open(file=filename) as f:
 
-			self.data = [ tuple(line.split(',')) for line in f.readlines()]
+			self.data = [ tuple(line.strip().split(',')) for line in f.readlines()]
 
 		self.V = list(sorted(set([nodes[0] for nodes in self.data])))
 		self.E = list(sorted(set([nodes[1] for nodes in self.data])))
@@ -27,6 +29,10 @@ class SimRank():
 
 			self.G[v_idx, e_idx] += 1
 
+		print(f'V: {self.V}')
+		print('-'*50)
+		print(f'E: {self.E}')
+		print('-'*50)
 		print(f'graph : \n{self.G}')
 		print('-'*50)
 
@@ -45,8 +51,8 @@ class SimRank():
 			v2_idx = self.V.index(v2)
 
 			penalty = self.C / (self.G[v1_idx].sum(axis= 0) * self.G[v2_idx].sum(axis= 0))
-			print(f'penalty: {penalty}')
-			print('-'*50)
+			# print(f'penalty: {penalty}')
+			# print('-'*50)
 
 			for i in [ i for i, e in enumerate(self.G[v1_idx]) if e != 0]:
 				for j in [ j for j, e in enumerate(self.G[v2_idx]) if e != 0]:
@@ -66,8 +72,8 @@ class SimRank():
 			e2_idx = self.E.index(e2)
 
 			penalty = self.C / (self.G.transpose()[e1_idx].sum(axis= 0) * self.G.transpose()[e2_idx].sum(axis= 0))
-			print(f'penalty: {penalty}')
-			print('-'*50)
+			# print(f'penalty: {penalty}')
+			# print('-'*50)
 
 			for i in [ i for i, v in enumerate(self.G.transpose()[e1_idx]) if v != 0]:
 				for j in [ j for j, v in enumerate(self.G.transpose()[e2_idx]) if v != 0]:
@@ -87,7 +93,7 @@ class SimRank():
 				for vj in self.V: 
 					i = self.V.index(vi)
 					j = self.V.index(vj)
-					print(self.V_SimRank(v1= vi, v2= vj))
+					# print(self.V_SimRank(v1= vi, v2= vj))
 					new_v_SimRank[i, j] = self.V_SimRank(v1= vi, v2= vj)
 
 			for ei in self.E:  
@@ -105,10 +111,11 @@ class SimRank():
 
 def main():
 
-	Ranker = SimRank(filename= filename)
+	filename = 'graph_4.txt'
+	Ranker = SimRank(filename= filename, C= 0.8)
 
 	print('-'*50)
-	print('Rank: ', Ranker.Compute_SimRank(epochs= 10))
+	print('Rank:\n\n', Ranker.Compute_SimRank(epochs= 5).round(2))
 	print('-'*50)
 
 if __name__ == '__main__':
