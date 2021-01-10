@@ -8,16 +8,16 @@ for i in range(1, 7):
 
 	filename= f'graph_{i}.txt'
 
-	print('-'*50)
-	n, M= get_n_M(filename= filename)
+	# print('-'*50)
+	n, M, V= get_n_M(filename= filename)
 	PR= PowerMethod(n=n, M= M)
 
-	print('-'*50)
+	# print('-'*50)
 	hit_algo = HITS(filename= filename)
 	h = hit_algo.get_scores()[0]
 	a = hit_algo.get_scores()[1]
-	print(h)
-	print('-'*50)
+	# print(h)
+	# print('-'*50)
 
 	if i < 5:
 		Ranker = SimRank(filename= filename, C= 0.8)
@@ -49,3 +49,24 @@ for i in range(1, 7):
 	np.savetxt(f'outputs/graph_{i}_HITS_hub.txt', h, fmt="%s")
 	np.savetxt(f'outputs/graph_{i}_HITS_authority.txt', a, fmt="%s")
 	np.savetxt(f'outputs/graph_{i}_SimRank.txt', SR, fmt="%s")
+
+modes = ['direct', 'bidirect']
+
+for mode in modes:
+	print(f'mode: {mode}...')
+	filename = f'data/ibm_graph_{mode}.txt'
+
+	print('-'*50)
+	n, M, V= get_n_M(filename= filename)
+	PR= PowerMethod(n=n, M= M)
+
+	print('-'*50)
+	hit_algo = HITS(filename= filename)
+	h = hit_algo.get_scores()[0]
+	a = hit_algo.get_scores()[1]
+	print(h)
+	print('-'*50)
+
+	np.savetxt(f'outputs/ibm_graph_{mode}_PageRank.txt', PR, fmt="%s")
+	np.savetxt(f'outputs/ibm_graph_{mode}_HITS_hub.txt', h, fmt="%s")
+	np.savetxt(f'outputs/ibm_graph_{mode}_HITS_authority.txt', a, fmt="%s")

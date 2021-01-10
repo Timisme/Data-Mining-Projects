@@ -30,7 +30,7 @@ class HITS():
 	def __init__(self, filename):
 
 		I_dict = dict()
-
+		self.V = set()
 		with open(filename) as f:
 			data = [tuple(line.strip().split(',')) for line in f.readlines()]
 			for node_tuple in data:
@@ -38,16 +38,18 @@ class HITS():
 					I_dict[node_tuple[0]] = [node_tuple[1]]
 				else:
 					I_dict[node_tuple[0]].append(node_tuple[1])
+				self.V.add(node_tuple[0])
+				self.V.add(node_tuple[1])
+				
+		self.V = sorted(self.V, key= lambda x: int(x))
 
-		V = list(sorted(set(list(I_dict.keys()) + [ j for js in I_dict.values() for j in js])))
-
-		self.L = np.zeros(shape= (len(V), len(V)))
+		self.L = np.zeros(shape= (len(self.V), len(self.V)))
 
 		for node in I_dict.keys():
-			i = V.index(node)
+			i = self.V.index(node)
 
 			for out_neighbor in I_dict[node]: 
-				j = V.index(out_neighbor)
+				j = self.V.index(out_neighbor)
 				
 				self.L[i, j] += 1
 
@@ -86,19 +88,36 @@ class HITS():
 def main():
 
 
-	filename = 'graph_5.txt'
+	# filename = 'new_graph/graph_1.txt'
 
-	# L = np.random.randint(2, size= (n, n))
+	# # L = np.random.randint(2, size= (n, n))
 
-	hit_algo = HITS(filename= filename)
+	# hit_algo = HITS(filename= filename)
 
-	# print(f"L : {L}")
-	print('-'*50)
-	print('a: ', np.argmax(hit_algo.get_scores()[1]))
-	print('h: ', np.argmax(hit_algo.get_scores()[0]))
-	print('a: ', hit_algo.get_scores()[1][427])
-	print('h: ', hit_algo.get_scores()[0][194])
+	# # print(f"L : {L}")
+	# print('-'*50)
+	# print(hit_algo.get_scores()[1])
+	# print('h', hit_algo.get_scores()[0])
+	# print('a: ', np.argmax(hit_algo.get_scores()[1]))
+	# print('h: ', np.argmax(hit_algo.get_scores()[0]))
+	# # print('a: ', hit_algo.get_scores()[1][427])
+	# # print('h: ', hit_algo.get_scores()[0][194])
 
+	modes = ['direct', 'bidirect']
+
+	for mode in modes:
+		filename = f'data/ibm_graph_{mode}.txt'
+
+		hit_algo = HITS(filename= filename)
+		V = hit_algo.V
+		h = hit_algo.get_scores()[0]
+		a = hit_algo.get_scores()[1]
+
+		rank_h = [sorted(h).index(x) for x in h]
+		rank_a = [sorted(a).index(x) for x in a]
+
+		np.savetxt(f'data/ibm_{mode}_hub.txt', [V[rank_h.index(x)] for x in sorted(rank_h, reverse= True)][:10], fmt="%s")
+		np.savetxt(f'data/ibm_{mode}_authority.txt', [V[rank_a.index(x)] for x in sorted(rank_a, reverse= True)][:10], fmt="%s")
 if __name__ == '__main__':
 	main()
 

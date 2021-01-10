@@ -14,8 +14,8 @@ class SimRank():
 
 			self.data = [ tuple(line.strip().split(',')) for line in f.readlines()]
 
-		self.V = list(sorted(set([nodes[0] for nodes in self.data])))
-		self.E = list(sorted(set([nodes[1] for nodes in self.data])))
+		self.V = list(sorted(set([nodes[0] for nodes in self.data]), key= lambda x: int(x)))
+		self.E = list(sorted(set([nodes[1] for nodes in self.data]), key= lambda x: int(x)))
 		self.G = np.zeros(shape= (len(self.V), len(self.E)))
 		self.C = C
 

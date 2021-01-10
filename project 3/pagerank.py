@@ -19,7 +19,7 @@ def get_n_M(filename):
 
 			out_degree[i] = out_degree.get(i, 0) + 1
 
-	V = sorted(V)
+	V = sorted(V, key= lambda x: int(x))
 	n = len(V)
 	M = np.zeros([n,n])
 
@@ -31,7 +31,7 @@ def get_n_M(filename):
 
 			M[j_idx, i_idx] = 1/out_degree[node_tuple[0]]
 	
-	return n, M
+	return n, M, V
 
 def PowerMethod(n, M, d= 0.85, epsilon= 1e-15):
 	# damping_matrix = [[ damping*(1/n) for i in range(n)] for j in range(n)]
@@ -60,13 +60,36 @@ def PowerMethod(n, M, d= 0.85, epsilon= 1e-15):
 
 if __name__ == '__main__':
 	
-	file = 'graph_1.txt'
+	modes = ['direct', 'bidirect']
 
-	n, M = get_n_M(filename= file)
+	for mode in modes:
+		file = f'data/ibm_graph_{mode}.txt'
+
+		n, M, V = get_n_M(filename= file)
+		print(n)
+		print(M)
+		print('-'*50)
+		# print(n, M)
+
+		r = PowerMethod(n= n, M= M, d= 0.85)
+		# print(f'r:\n{r}')
+
+		rank_r = [sorted(r).index(x) for x in r]
+		# print('V:', V)
+		# print(f'rank_r:\n{rank_r}')
+
+		# print(f'max_rank_item: {V[np.argmax(rank_r)]}')
+		# print(f'node order by pagerank:\n{[V[rank_r.index(x)] for x in sorted(rank_r, reverse= True)][:10]}')
+		np.savetxt(f'data/ibm_{mode}_pagerank.txt', [V[rank_r.index(x)] for x in sorted(rank_r, reverse= True)][:10], fmt="%s")
+
+
+	file = f'graph_1.txt'
+
+	n, M, V = get_n_M(filename= file)
 	print(n)
 	print(M)
-
+	print('-'*50)
 	# print(n, M)
 
 	r = PowerMethod(n= n, M= M, d= 0.85)
-	print(r)
+	print(f'r:\n{r}')
