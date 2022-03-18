@@ -1,6 +1,6 @@
 # Data-Mining-Projects
 
-### 課程 - 資料探勘
+### 課程 資料探勘
 
 撰寫語言： Python 
 
